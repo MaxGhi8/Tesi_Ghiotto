@@ -205,9 +205,9 @@ class FourierLayer(nn.Module):
 #########################################
 # geoFNO for Euler's equation (airfoil)
 #########################################
-class Airfoil_geoFNO(nn.Module):
+class Elasticity_Omesh_geoFNO(nn.Module):
     def __init__(self, d_a, d_v, d_u, L, modes1, modes2):
-        super(Airfoil_geoFNO, self).__init__()
+        super(Elasticity_Omesh_geoFNO, self).__init__()
         """            
         d_a : int
             pari alla dimensione dello spazio in input
@@ -300,7 +300,7 @@ class Airfoil_geoFNO(nn.Module):
 if __name__ == '__main__':
     # Per salvare i dati
     writer = SummaryWriter(log_dir = name_log_dir)
-    # 'cuda' se Ã¨ disponibile la GPU, sennÃ² Ã¨ 'cpu'
+    # 'cuda' se è disponibile la GPU, sennò è 'cpu'
     print('Device disponibile:', mydevice)
     ################################################################
     # load data
@@ -338,7 +338,7 @@ if __name__ == '__main__':
     ################################################################
     
     # Inizializzazione del modello
-    model = Airfoil_geoFNO(d_a, d_v, d_u, L, modes1, modes2)
+    model = Elasticity_Omesh_geoFNO(d_a, d_v, d_u, L, modes1, modes2)
     # model.to(mydevice)
     
     # conta del numero di parametri utilizzati
@@ -346,9 +346,9 @@ if __name__ == '__main__':
     for p in model.parameters():
         # print(p.shape)
         par_tot += reduce(operator.mul, list(p.shape + (2,) if p.is_complex() else p.shape))
-    print("Numero totale di parametri dell'operator network Ã¨:", par_tot)
+    print("Numero totale di parametri dell'operator network è:", par_tot)
     # salvo il numero di parametri su tensorboard
-    writer.add_text("Parametri", 'il numero totale di parametri Ã¨' + str(par_tot), 0)
+    writer.add_text("Parametri", 'il numero totale di parametri è' + str(par_tot), 0)
     
     # Adam optimizer
     optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate, weight_decay = 1e-4)
@@ -480,8 +480,7 @@ if __name__ == '__main__':
                 # per la colormap (vale per tutti i plot)
                 lims = dict(cmap='RdBu_r', vmin = sol_test[i].min(), vmax = sol_test[i].max())
                 # figura
-                out_test_i = out_test[i]
-                im = ax[i].scatter(X[i], Y[i], size, out_test_i, edgecolor='w', lw=0.1, **lims)
+                im = ax[i].scatter(X[i], Y[i], size, out_test[i], edgecolor='w', lw=0.1, **lims)
                 fig.colorbar(im, ax = ax[i])
             if plotting:
                 plt.show()
@@ -500,8 +499,7 @@ if __name__ == '__main__':
                 # per la colormap (vale per tutti i plot)
                 lims = dict(cmap='RdBu_r', vmin = sol_test[i].min(), vmax = sol_test[i].max())
                 # figura
-                diff_i = diff[i]
-                im = ax[i].scatter(X[i], Y[i], size, np.abs(diff_i), edgecolor='w', lw=0.1, **lims)
+                im = ax[i].scatter(X[i], Y[i], size, np.abs(diff[i]), edgecolor='w', lw=0.1, **lims)
                 fig.colorbar(im, ax = ax[i])
             if plotting:
                 plt.show()

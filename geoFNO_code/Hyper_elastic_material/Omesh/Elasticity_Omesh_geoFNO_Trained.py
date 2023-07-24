@@ -200,9 +200,9 @@ class FourierLayer(nn.Module):
 #########################################
 # geoFNO for Euler's equation (airfoil)
 #########################################
-class Airfoil_geoFNO(nn.Module):
+class Elasticity_Omesh_geoFNO(nn.Module):
     def __init__(self, d_a, d_v, d_u, L, modes1, modes2):
-        super(Airfoil_geoFNO, self).__init__()
+        super(Elasticity_Omesh_geoFNO, self).__init__()
         """            
         d_a : int
             pari alla dimensione dello spazio in input
@@ -293,7 +293,7 @@ class Airfoil_geoFNO(nn.Module):
         return torch.cat((gridx, gridy), dim=-1).to(device)
 
 
-# 'cuda' se Ã¨ disponibile la GPU, sennÃ² Ã¨ 'cpu'
+# 'cuda' se è disponibile la GPU, sennÃ² è 'cpu'
 print('Device disponibile:', mydevice)
 ################################################################
 # load data
@@ -338,7 +338,7 @@ par_tot = 0
 for p in model.parameters():
     # print(p.shape)
     par_tot += reduce(operator.mul, list(p.shape + (2,) if p.is_complex() else p.shape))
-print("Numero totale di parametri dell'operator network Ã¨:", par_tot)
+print("Numero totale di parametri dell'operator network è:", par_tot)
 
 #########################################
 # plot dei dati alla fine ogni ep_step epoche

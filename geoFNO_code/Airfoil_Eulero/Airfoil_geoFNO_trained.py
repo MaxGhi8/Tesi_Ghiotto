@@ -31,7 +31,7 @@ beta = 1 # calcola norma_{L_2} + beta*norma_{H_1}
 def activation(x):
     """
     Activation function che si vuole utilizzare all'interno della rete.
-    La funzione ÃÂ¨ la stessa in tutta la rete.
+    La funzione è la stessa in tutta la rete.
     """
     return F.gelu(x)
 # fun_act = 'relu' # per kaiming initial normalization

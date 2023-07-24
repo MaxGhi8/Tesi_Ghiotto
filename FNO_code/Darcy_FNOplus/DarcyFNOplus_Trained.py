@@ -444,7 +444,7 @@ model.eval()
 #########################################
 # stampo a video dato iniziale
 im = plt.imshow(a_test.squeeze())
-plt.colorbar()
+plt.colorbar(im)
 plt.show() 
 
 # stampo a video sol esatta

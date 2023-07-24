@@ -351,7 +351,7 @@ class FNOplus_Darcy2d(nn.Module):
         x = torch.cat((x, grid), dim = -1) #concateno lungo l'ultima dimensione
         # ora x è un tensore di dimensione: (n_samples)*(n_x)*(n_y)*(3)
         
-        x = x.permute(0, 3, 2, 1) # (n_samples)*(3)*(n_x)*(n_y)
+        x = x.permute(0, 3, 1, 2) # (n_samples)*(3)*(n_x)*(n_y)
         
         # Applica P
         x = self.p(x) # shape = (n_samples)*(d_v)*(n_x)*(n_y)
@@ -379,6 +379,7 @@ class FNOplus_Darcy2d(nn.Module):
                     
         # Padding
         # x = x[..., :-self.padding, :-self.padding]
+        
         # applico Q
         x = self.q(x)
         x.permute(0, 2, 3, 1)

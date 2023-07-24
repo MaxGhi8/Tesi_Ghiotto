@@ -355,6 +355,6 @@ loss_rel = L2relLoss()
 err_rel_L2 = loss_rel(u_test.unsqueeze(0), out_test).item()
 print('Errore relativo in norma L2 =', err_rel_L2)
 
-for p in model.parameters():
-    print(p.shape)
+# for p in model.parameters():
+#     print(p.shape)
 

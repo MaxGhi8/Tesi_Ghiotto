@@ -30,6 +30,19 @@ torch.set_default_device(mydevice) # default tensor device
 torch.set_default_tensor_type(torch.FloatTensor) # default tensor dtype
 
 #########################################
+# activation function
+#########################################
+def activation(x):
+    """
+    Activation function che si vuole utilizzare all'interno della rete.
+    La funzione è la stessa in tutta la rete.
+    """
+    return F.relu(x)
+
+# per kaiming initial normalization
+fun_act = 'relu' 
+
+#########################################
 # reading data
 #########################################
 def MatReader(file_path):
@@ -57,19 +70,6 @@ def MatReader(file_path):
     u = torch.from_numpy(u).float()
     a, u = a.to('cpu'), u.to('cpu')
     return a, u
-
-#########################################
-# activation function
-#########################################
-def activation(x):
-    """
-    Activation function che si vuole utilizzare all'interno della rete.
-    La funzione è la stessa in tutta la rete.
-    """
-    return F.relu(x)
-
-# per kaiming initial normalization
-fun_act = 'relu' 
 
 #########################################
 # loss function
